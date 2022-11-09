@@ -5,9 +5,10 @@
       <div><input v-model="key" placeholder="Cognitive Services Speech API Key" /></div>
       <div>
         <select v-model="fromLanguage">
-          <option v-for="lang in fromLanguage" :value="lang" :key="lang">
+          <option v-for="lang in fromLanguages" :value="lang" :key="lang">
             {{ lang }}
           </option>
+      
         </select>
         <button @click="start">start</button>
       </div>
@@ -25,20 +26,22 @@
 //import axios from 'axios'
 //import constants from '../lib/constants'
 import Translator from '../lib/translator'
-//mport languageListMixin from '../lib/language-list-mixin'
+import languages from '../lib/language'
 
 const speechApiKeyLocalStorageKey = 'speechApiKey'
 
 export default {
   name:"HostComp",
-  mixins: [ "en-us" ],
+  mixins: [ languages ],
   data() {
     return {
       key: window.localStorage.getItem(speechApiKeyLocalStorageKey) || '',
       region: 'eastus',
       currentSentence: '',
       started: false,
-      fromLanguage: ["en-us"]
+      fromLanguage: ["en-US"],
+      toLanguage: ["en-US"],
+      translations:''
     }
   },
   watch: {
@@ -48,19 +51,23 @@ export default {
   },
   created() {
     this.translator = new Translator(function(captions) {
+      console.log(captions)
       this.currentSentence += captions.original
       //axios.post(`${constants.apiBaseUrl}/api/captions`,
       //  captions.translations,
       //  { withCredentials: true })
     }.bind(this))
+    
   },
   methods: {
     start() {
+      console.log("here1")
+      console.log(this.toLanguage)
       this.translator.start({
         key: this.key,
         region: this.region,
-        fromLanguage: "en-us",
-        toLanguages: "en-us"
+        fromLanguage: "en-US",
+        toLanguages: this.toLanguages
       })
       this.started = true
     },

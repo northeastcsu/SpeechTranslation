@@ -23,10 +23,10 @@ import {
   
       speechConfig.speechRecognitionLanguage = options.fromLanguage
       //speechConfig.speechRecognitionLanguage = "en-us"
-      //for (const lang of options.toLanguages) {
-      //  speechConfig.addTargetLanguage(lang)
-      //}
-      speechConfig.addTargetLanguage("en-us")
+      for (const lang of options.toLanguages) {
+        speechConfig.addTargetLanguage(lang)
+      }
+      console.log(speechConfig)
   
       this._recognizer = new TranslationRecognizer(speechConfig, audioConfig)
       //this._recognizer.recognizing = this._recognizer.recognized = recognizerCallback.bind(this)
@@ -40,13 +40,13 @@ import {
         if (reason !== 'TranslatingSpeech' && reason !== 'TranslatedSpeech') {
           return
         }
-  
+        console.log(result)
         const captions = {
           offset: result.offset,
           languages: {}
         }
         captions.languages[getLanguageCode(options.fromLanguage)] = result.text
-        //captions.languages[getLanguageCode("en-us")] = result.text
+        
   
         for (const lang of options.toLanguages) {
           const langCode = getLanguageCode(lang)
