@@ -1,20 +1,21 @@
 <template>
-    <div class="caption-host">
+  <h1>Host</h1>
+  <button @click="home">Home</button> 
+  <div class="caption-host">
     <div v-if="!started">
       <h1>Host</h1>
-      <div><input v-model="key" placeholder="Cognitive Services Speech API Key" /></div>
+      <div><input id="speechkey" v-model="key" placeholder="Cognitive Services Speech API Key" /></div>
       <div>
-        <select v-model="fromLanguage">
+        <!---<select v-model="fromLanguage">
           <option v-for="lang in fromLanguages" :value="lang" :key="lang">
             {{ lang }}
           </option>
-      
-        </select>
-        <button @click="start">start</button>
+        </select>-->
+        <p><button @click="start">start</button></p>
       </div>
     </div>
     <div v-else>
-      <button @click="stop">stop</button>
+      <p><button @click="stop">stop</button></p>
       <div id="currentSentence" class="caption">
         {{ currentSentence }}
       </div>
@@ -23,8 +24,8 @@
 </template>
 
 <script>
-//import axios from 'axios'
-//import constants from '../lib/constants'
+import axios from 'axios'
+import constants from '../lib/constants'
 import Translator from '../lib/translator'
 import languages from '../lib/language'
 
@@ -39,9 +40,7 @@ export default {
       region: 'eastus',
       currentSentence: '',
       started: false,
-      fromLanguage: ["en-US"],
-      toLanguage: ["en-US"],
-      translations:''
+      fromLanguage: ["en-US"]
     }
   },
   watch: {
@@ -53,16 +52,15 @@ export default {
     this.translator = new Translator(function(captions) {
       console.log(captions)
       this.currentSentence += captions.original
-      //axios.post(`${constants.apiBaseUrl}/api/captions`,
-      //  captions.translations,
-      //  { withCredentials: true })
+      axios.post(`${constants.apiBaseUrl}/api/TranslationBroadcast`,
+        captions.translations)
     }.bind(this))
     
   },
   methods: {
     start() {
-      console.log("here1")
-      console.log(this.toLanguage)
+      console.log("to languages")
+     
       this.translator.start({
         key: this.key,
         region: this.region,
@@ -75,16 +73,43 @@ export default {
       this.started = false
       this.currentSentence = ''
       this.translator.stop()
+    },
+    home() {
+      console.log('here')
+      this.$router.push({path:'/'})
     }
   },
   beforeUnmount() {
     this.translator.stop()
-  }
+  },
+  
 }
 </script>
 
 <style scoped>
-input[type=password] {
+input[id=speechkey] {
   width: 600px;
+  height: 40px;
 }
+
+button {
+  width: 100px;
+  height: 50px;
+  margin-left: 10px;
+}
+
+</style>
+
+<style scoped>
+input[id=speechkey] {
+  width: 600px;
+  height: 40px;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  margin-left: 10px;
+}
+
 </style>

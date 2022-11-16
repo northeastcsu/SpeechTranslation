@@ -1,15 +1,22 @@
 <template>
    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/host">Host</router-link> | 
-      <router-link to="/consumer">Consumer</router-link>
+      
   </div>
   <router-view />
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid';
+import constants from './lib/constants'
 
-
+export default {
+  data() {
+    return {
+      clientId: uuidv4(),
+      title: constants.title
+    }
+  }
+}
 </script>
 
 <style>

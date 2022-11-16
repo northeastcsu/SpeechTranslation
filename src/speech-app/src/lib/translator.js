@@ -11,26 +11,24 @@ import {
     }
   
     start(options) {
-      console.log('started')
+     
+      
       const alreadyStarted = !!this._recognizer
-      console.log(alreadyStarted)
+     
       if (alreadyStarted) {
         return
       }
-      console.log("here")
       const audioConfig = AudioConfig.fromDefaultMicrophoneInput()
       const speechConfig = SpeechTranslationConfig.fromSubscription(options.key, options.region)
   
       speechConfig.speechRecognitionLanguage = options.fromLanguage
-      //speechConfig.speechRecognitionLanguage = "en-us"
-      for (const lang of options.toLanguages) {
-        speechConfig.addTargetLanguage(lang)
+
+      for (var i = 0; i < options.toLanguages.length; i++) {
+        speechConfig.addTargetLanguage(options.toLanguages[i])
       }
-      console.log(speechConfig)
-  
+
       this._recognizer = new TranslationRecognizer(speechConfig, audioConfig)
       //this._recognizer.recognizing = this._recognizer.recognized = recognizerCallback.bind(this)
-      //this._recognizer.recognizing  = recognizerCallback.bind(this)
       this._recognizer.recognized = recognizerCallback.bind(this)
       this._recognizer.startContinuousRecognitionAsync()
       
