@@ -28,8 +28,8 @@ import {
       }
 
       this._recognizer = new TranslationRecognizer(speechConfig, audioConfig)
-      //this._recognizer.recognizing = this._recognizer.recognized = recognizerCallback.bind(this)
-      this._recognizer.recognized = recognizerCallback.bind(this)
+      this._recognizer.recognizing = this._recognizer.recognized = recognizerCallback.bind(this)
+      //this._recognizer.recognizing = recognizerCallback.bind(this)
       this._recognizer.startContinuousRecognitionAsync()
       
       function recognizerCallback(s, e) {

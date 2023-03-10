@@ -29,7 +29,7 @@ import constants from '../lib/constants'
 import Translator from '../lib/translator'
 import languages from '../lib/language'
 
-const speechApiKeyLocalStorageKey = 'speechApiKey'
+const speechApiKeyLocalStorageKey = 'speechapikey'
 
 export default {
   name:"HostComp",

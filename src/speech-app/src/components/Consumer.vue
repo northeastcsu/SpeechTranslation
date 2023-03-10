@@ -114,30 +114,3 @@ export default {
   padding-bottom: 60px
 }
 </style>
-
-
-
-<!--<template>
-    <h1>Consumer</h1>
-    <button @click="home">Home</button> 
-</template>
-
-<script>
-export default {
-  name: 'ComsumerComp',
-  methods:{
-    home(){
-      this.$router.push({path:'/'})
-    }
-  }
-}
-</script>
-
-<style scoped>
-
-button {
-  width: 100px;
-  height: 50px;
-  margin-left: 10px;
-}
-</style>-->

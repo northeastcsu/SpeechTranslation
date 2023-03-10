@@ -1,5 +1,5 @@
 import axios from 'axios'
-//import constants from './constants'
+import constants from './constants'
 
 export default {
   data() {
@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     async getTargetLanguages() {
-      const languages = (await axios.get(`http://localhost:7071/api/targetlanguages`)).data
+      const languages = (await axios.get(`${constants.apiBaseUrl}/api/targetlanguages`)).data
       return {
         to: languages
       }
