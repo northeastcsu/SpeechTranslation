@@ -65,6 +65,7 @@ namespace BroadcastFunction
             var captionTasks = new List<Task>();
             var translations = data.languages.ToObject<Dictionary<string, string>>();
 
+            Console.WriteLine(data);
             foreach (var translation in translations)
             {
                 string value = translation.Value;
@@ -86,8 +87,6 @@ namespace BroadcastFunction
             }
 
             await Task.WhenAll(captionTasks);
-
-            //return new OkObjectResult("good");
         }
     }
 }

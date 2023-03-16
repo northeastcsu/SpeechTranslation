@@ -4,5 +4,11 @@
     "azureFunctions.projectRuntime": "~3",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.preDeployTask": "publish (functions)",
-    "azureFunctions.templateFilter": "All"
+    "azureFunctions.templateFilter": "All",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/03a1ebc6-b349-4cae-8cff-5b3f8d28205b/AppServices/subscriptions/03a1ebc6-b349-4cae-8cff-5b3f8d28205b/resourceGroups/realspeechwebapp_group/providers/Microsoft.Web/sites/realspeechwebapp",
+    "appService.deploySubpath": "speech-app"
 }
